@@ -1,6 +1,12 @@
-import './globals.css'
+import '@/globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+// import { AppBar } from '@mui/material'
+import LayoutView from '@/views/layout/layout-view';
+import { AuthProvider } from '@/context/auth-context';
+import { MessageProvider } from '@/context/message-context';
+import LoginView from '@/views/login/login-view';
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +22,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className='m-0'>
+        <AuthProvider>
+          <MessageProvider>
+            <LayoutView>
+              {/* <LoginView/> */}
+              {children}
+            </LayoutView>
+          </MessageProvider>
+        </AuthProvider>
+      </body>
     </html>
   )
 }
