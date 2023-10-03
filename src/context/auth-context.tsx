@@ -37,7 +37,7 @@ const AuthProvider = ({ children }: Props) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ isLogin, userId: '', roles: [] }}>
+        <AuthContext.Provider value={{ isLogin, ...userInfo }}>
             {children}
         </AuthContext.Provider>
     )

@@ -45,7 +45,7 @@ export default function LoginView() {
 
   // functions
   const onSubmit: SubmitHandler<Inputs> = (data) => login(data)
-  
+
   const login = async (data: Inputs) => {
     const res = await SendPost('Authenticate/login', data);
     // console.log(res.token);
@@ -90,11 +90,11 @@ export default function LoginView() {
           </div>
           <Button className='mt-8 w-full' variant="contained" type='submit'>登入</Button>
         </form>
-        <a href='#' >
-          <p className='underline text-gray-500 mt-2 mb-0'>
-            忘記密碼
-          </p>
-        </a>
+
+        <p className='underline text-gray-500 mt-2 mb-0 cursor-pointer' onClick={()=>router.push('./forgot-password')}>
+          忘記密碼
+        </p>
+
         <h2>沒有帳號嗎?</h2>
         <Button className='w-1/4' variant="contained" onClick={toRegister}>註冊</Button>
       </div>
