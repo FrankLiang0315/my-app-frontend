@@ -1,54 +1,61 @@
-"use client"
+"use client";
 
-const baseUrl = 'https://localhost:7009/api/';
+const baseUrl = process.env.BACK_END_URL + "/api/";
 
 export const SendGet = async (url: string, body?: any) => {
   let headers: HeadersInit | undefined = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   };
-  
-  const token  = localStorage.getItem('LoginToken');
+
+  const token = localStorage.getItem("LoginToken");
 
   if (token) {
-    headers['Authorization'] = 'Bearer ' + token;
+    headers["Authorization"] = "Bearer " + token;
   }
-  
 
   const response = await fetch(baseUrl + url, {
     method: "GET",
     headers: headers,
     body: JSON.stringify(body),
-    mode: 'cors'
+    mode: "cors",
   });
 
-  return await response?.json();
-}
+  try {
+    if (response.ok) {
+      return response.json();
+    } else {
+      return null;
+    }
+  } catch {
+    return null;
+  }
+};
 
 export const SendPost = async (url: string, body: any) => {
-    let headers: HeadersInit | undefined = {
-      'Content-Type': 'application/json',
-    };
-    
-    const token  = localStorage.getItem('LoginToken');
+  let headers: HeadersInit | undefined = {
+    "Content-Type": "application/json",
+  };
 
-    if (token) {
-      headers['Authorization'] = 'Bearer ' + token;
-    }
-    
+  const token = localStorage.getItem("LoginToken");
 
-    const response = await fetch(baseUrl + url, {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(body),
-      mode: 'cors'
-    });
+  if (token) {
+    headers["Authorization"] = "Bearer " + token;
+  }
 
-    try {
-      return response.json()
-    } 
-    catch{
+  const response = await fetch(baseUrl + url, {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify(body),
+    mode: "cors",
+  });
+
+  try {
+    if (response.ok) {
+      return response.json();
+    } else {
       return null;
-    };
-}
-
-
+    }
+  } catch {
+    return null;
+  }
+};

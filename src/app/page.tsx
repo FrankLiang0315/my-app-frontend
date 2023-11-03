@@ -1,7 +1,7 @@
-import Image from 'next/image'
+import AboutUsView from "@/views/about-us/about-us-view"
 
 export default function Home() {
   return (
-    <div>home</div>
+    <AboutUsView/>
   )
 }

@@ -14,12 +14,11 @@ interface Props {
 
 export default function LayoutView(props: Props) {
   const { children } = props;
-  const [showMessage,setShowMessage] = React.useState<boolean>(true);
 
   return (
     <>
       <LayoutNavBar />
-      <div className='p-2'>
+      <div className='p-2 text-base'>
         {children}
       </div>
     </>

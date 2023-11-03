@@ -7,6 +7,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import WarningAmberOutlinedIcon from '@mui/icons-material/WarningAmberOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import { TransitionProps } from '@mui/material/transitions';
+import { TransitionDialog } from '@/compornets/transition-dialog';
 
 
 
@@ -21,16 +22,6 @@ type MessageValuesType = {
     showAlert: (severity: Severity, message: string) => void;
     showDialog: (severity: Severity, message: string) => void;
 }
-
-const Transition = forwardRef(function Transition(
-    props: TransitionProps & {
-        children: React.ReactElement<any, any>;
-    },
-    ref: React.Ref<unknown>,
-) {
-    return <Zoom ref={ref} {...props}/>
-});
-
 
 const defaultProvider: MessageValuesType = {
     showAlert: (severity: Severity, message: string) => null,
@@ -82,9 +73,8 @@ const MessageProvider = ({ children }: Props) => {
                     {message}
                 </Alert>
             </Snackbar>
-            <Dialog open={showDialog}
+            <TransitionDialog open={showDialog}
                 onClose={() => setShowDialog(false)}
-                TransitionComponent={Transition}
                 fullWidth
                 maxWidth="sm">
                 <IconButton
@@ -105,7 +95,7 @@ const MessageProvider = ({ children }: Props) => {
                         <p className='text-2xl m-0'>{message}</p>
                     </div>
                 </DialogContent>
-            </Dialog>
+            </TransitionDialog>
             {children}
         </MessageContext.Provider>
     )

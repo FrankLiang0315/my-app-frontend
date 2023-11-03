@@ -2,3 +2,22 @@
 @tailwind components; */
 @tailwind utilities;
 /* @import "tailwindcss/utilities"; */
+
+.card {
+    border-top: 10px solid #1976d2;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px #26262633;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: linear-gradient(180deg, #fff, #f0f2f3);
+}
