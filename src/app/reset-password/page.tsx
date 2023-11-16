@@ -1,5 +1,5 @@
 "use client"
-import ResetPasswordView from '@/views/reset-password/reset-password-view';
+import ResetPasswordView from '@/views/auth/reset-password/reset-password-view';
 
 export default function ResetPassword() {
 

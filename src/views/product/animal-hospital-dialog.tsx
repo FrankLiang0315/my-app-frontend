@@ -131,11 +131,11 @@ export function AnimalHospitalDialog({ isOpen, setIsOpen }: Props) {
       <DialogContent>
         <div className="mb-4">
           <TextField
-            className="mr-2"
             label="您的所在地"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             size="small"
+            sx={{ mr: 1 }}
           ></TextField>
           <Button onClick={search} variant="contained">
             搜尋

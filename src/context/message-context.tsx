@@ -30,10 +30,10 @@ const defaultProvider: MessageValuesType = {
 
 const DialogIcon = ({ severity }: { severity: Severity }) => {
     switch (severity) {
-        case 'error': return <ErrorOutlineOutlinedIcon className='text-9xl' color={severity} />
-        case 'warning': return <WarningAmberOutlinedIcon className='text-9xl' color={severity} />
-        case 'info': return <InfoOutlinedIcon className='text-9xl' color={severity} />
-        case 'success': return <CheckCircleOutlineIcon className='text-9xl' color={severity} />
+        case 'error': return <ErrorOutlineOutlinedIcon color={severity} sx={{fontSize:128}}/>
+        case 'warning': return <WarningAmberOutlinedIcon color={severity} sx={{fontSize:128}}/>
+        case 'info': return <InfoOutlinedIcon color={severity} sx={{fontSize:128}}/>
+        case 'success': return <CheckCircleOutlineIcon color={severity} sx={{fontSize:128}}/>
     }
 };
 

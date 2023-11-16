@@ -69,14 +69,15 @@ export default function CartView() {
   }, [pets]);
 
   const cols: GridColDef[] = [
-    { flex: 0.3, field: "name", headerName: "寵物名稱" },
+    { flex: 1, minWidth: 150, field: "name", headerName: "寵物名稱" },
     {
-      flex: 0.4,
+      flex: 1,
+      minWidth: 400,
       field: "products",
       headerName: "產品",
       renderCell: ({ row }: CellType) => {
         return (
-          <div className="w-4/5 grid grid-cols-4">
+          <div className="w-full grid grid-cols-4">
             <div className="flex items-center">狗糧方案</div>
             <div className="col-span-3 items-center">
               <Select
@@ -119,7 +120,8 @@ export default function CartView() {
       },
     },
     {
-      flex: 0.3,
+      flex: 1,
+      minWidth: 150,
       field: "price",
       headerName: "金額",
       headerAlign: "right",
@@ -222,6 +224,7 @@ export default function CartView() {
             rows={pets}
             getRowId={(row) => row.id}
             disableRowSelectionOnClick
+            sx={{backgroundColor:"white"}}
           ></DataGrid>
           <div className="flex justify-end gap-2 items-center m-3">
             <div className="flex justify-end text-lg">

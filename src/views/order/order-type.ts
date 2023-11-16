@@ -1,6 +1,6 @@
 export type Order = {
   orderNumber: string;
-  status: number;
+  status: StatusEnum;
   price: number;
   createdAt: Date;
   ordererName: string;
@@ -17,8 +17,20 @@ export type Order = {
       name: string;
     };
   }[];
+  user?:{
+    userName: string;
+  }
 };
 
 export enum ProductEnum {
   "狗糧" = 1,
+}
+
+export enum StatusEnum {
+  Created = 0,
+  PendingPayment = 1,
+  InProgress = 2,
+  PendingLogistics = 3,
+  Shipping = 4,
+  Completed = 5
 }

@@ -1,7 +1,7 @@
 import { TransitionDialog } from "@/compornets/transition-dialog";
 import { Button, DialogContent, DialogTitle } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { getStatus } from "./order-tools";
+import { getClientStatus } from "./order-tools";
 import { Order, ProductEnum } from "./order-type";
 
 type Props = {
@@ -75,12 +75,12 @@ export function OrderItemDialog(props: Props) {
         {order && (
           <>
             <div className="grid grid-cols-12 gap-y-4 mb-4 items-center">
-              <div className="col-span-4">訂單編號：{order.orderNumber}</div>
-              <div className="col-span-4">
+              <div className="col-span-12 sm:col-span-6 md:col-span-4">訂單編號：{order.orderNumber}</div>
+              <div className="col-span-12 sm:col-span-6  md:col-span-4">
                 訂單金額：${new Intl.NumberFormat().format(order.price)}
               </div>
-              <div className="col-span-4">
-                訂單狀態：{getStatus(order.status)}
+              <div className="col-span-12 sm:col-span-12  md:col-span-4">
+                訂單狀態：{getClientStatus(order.status)}
                 {order.status === 1 && (
                   <div className="ml-4 inline-block">
                     <Button
@@ -95,11 +95,11 @@ export function OrderItemDialog(props: Props) {
                   </div>
                 )}
               </div>
-              <div className="col-span-4">訂購人姓名：{order.ordererName}</div>
-              <div className="col-span-4">訂購人電話：{order.ordererTel}</div>
+              <div className="col-span-12 sm:col-span-6  md:col-span-4">訂購人姓名：{order.ordererName}</div>
+              <div className="col-span-12 sm:col-span-6  md:col-span-4">訂購人電話：{order.ordererTel}</div>
               <div className="col-span-12">訂購人地址：{order.ordererAdd}</div>
-              <div className="col-span-4">收件人姓名：{order.receiverName}</div>
-              <div className="col-span-4">收件人電話：{order.receiverTel}</div>
+              <div className="col-span-12 sm:col-span-6  md:col-span-4">收件人姓名：{order.receiverName}</div>
+              <div className="col-span-12 sm:col-span-6  md:col-span-4">收件人電話：{order.receiverTel}</div>
               <div className="col-span-12">收件人地址：{order.receiverAdd}</div>
             </div>
             <DataGrid

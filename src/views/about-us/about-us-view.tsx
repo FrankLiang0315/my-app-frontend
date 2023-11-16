@@ -4,7 +4,7 @@ import { Divider } from '@mui/material';
 
 export default function AboutUsView() {
   return (
-    <div className='m-auto w-[calc(100%-200px)] md:w-[768px] '>
+    <div className='m-auto w-full lg:w-[calc(100%-200px)]'>
       <p className='text-3xl text-center font-bold'>關於我們</p>
       <div className='grid grid-cols-1 gap-6 md:grid-cols-2 text-center'>
         <div>
@@ -18,7 +18,7 @@ export default function AboutUsView() {
             <p className='text-xl font-bold m-0 mb-1'>為您的寶貝量身訂做的</p>
             <p className='text-xl font-bold m-0 mb-1 text-red-700'>Hangi 營養糧</p>
             <p className='m-0'>就算是體型、品種一樣，年齡或生活方式一定不一樣，每一次的配方都是經過您的寶貝「毛髮檢測」檢測健康需求而客製的精準配方。</p>
-            <img src="doctor.9ae25c35.svg" className=" absolute top-0 right-[-100px]" alt=""></img>
+            <img src="doctor.9ae25c35.svg" className=" absolute top-0 right-[-100px] hidden lg:block" alt=""></img>
           </div>
           <img src="dog_cat.b257ed05.svg" alt=""></img>
         </div>
@@ -40,7 +40,7 @@ export default function AboutUsView() {
           嚴選食材製作，科學檢驗無藥物殘留
           投保產品責任險：產品製造商在製作過程因抗力、不可抗力因素，導致產品缺陷或瑕疵。產品在被使用的過程中發生意外或傷害，於保險期間內各個事件累積的理賠總金額可達3000萬元。
         </div>
-        <img src="dog-1.d0973523.svg" className=" absolute bottom-0 left-[-130px]" alt=""></img>
+        <img src="dog-1.d0973523.svg" className=" absolute bottom-0 left-[-130px] hidden lg:block" alt=""></img>
       </div>
     </div>
   )

@@ -40,9 +40,11 @@ const AuthProvider = ({ children }: Props) => {
             console.log(res.data)
             setUserInfo(res.data)
             setIsLogin(true);
+            localStorage.setItem("isAdmin", res?.data?.roles?.includes("Admin").toString() ?? "false");
         }).catch((error) => {
             setIsLogin(false);
             if (goToLogin) route.push('/login');
+            localStorage.setItem("isAdmin", "false");
         });
     };
     

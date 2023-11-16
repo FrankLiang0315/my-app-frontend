@@ -12,7 +12,8 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import PetsIcon from "@mui/icons-material/Pets";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { AuthContext } from "@/context/auth-context";
 import { useRouter } from "next/navigation";
 
@@ -28,16 +29,31 @@ export default function LayoutNavBar() {
     // { name: "Profile", onClick: () => null },
     // { name: "Account", onClick: () => null },
     // { name: "Dashboard", onClick: () => null },
-    { name: "Logout", onClick: () => logout() },
+    { name: "登出", onClick: () => logout() },
   ];
 
-  const pages = [
-    { name: "產品", onClick: () => router.push("/product") },
-    { name: "您的寵物", onClick: () => router.push("/pet") },
-    { name: "購物車", onClick: () => router.push("/cart") },
-    { name: "訂單查詢", onClick: () => router.push("/order") },
-    { name: "mhn", onClick: () => router.push("/mhn") },
-  ];
+
+
+  const getPages =  () => {
+    let pages = [];
+    if(auth.roles.includes("Admin")) {
+      pages  = [
+        { name: "訂單管理", onClick: () => router.push("/admin/order-management") },
+        { name: "用戶管理", onClick: () => router.push("/admin/user-management") },
+        { name: "管理員管理", onClick: () => router.push("/admin/admin-management") },
+      ];
+    }else {
+      pages = [
+        { name: "產品", onClick: () => router.push("/product") },
+        { name: "您的寵物", onClick: () => router.push("/pet") },
+        { name: "購物車", onClick: () => router.push("/cart") },
+        { name: "訂單查詢", onClick: () => router.push("/order") },
+        { name: "mhn", onClick: () => router.push("/mhn") },
+      ]
+      
+    }
+      return pages;
+  };
 
   const logout = () => {
     localStorage.removeItem("LoginToken");
@@ -64,7 +80,7 @@ export default function LayoutNavBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <PetsIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -80,7 +96,7 @@ export default function LayoutNavBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            憨吉Hangi
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -112,14 +128,14 @@ export default function LayoutNavBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
+              {getPages().map((page) => (
                 <MenuItem key={page.name} onClick={page.onClick}>
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <PetsIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -136,10 +152,10 @@ export default function LayoutNavBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            憨吉Hangi
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {getPages().map((page) => (
               <Button
                 key={page.name}
                 onClick={page.onClick}
@@ -161,12 +177,10 @@ export default function LayoutNavBar() {
               </Button>
             ) : (
               <>
-                <Tooltip title="Open settings">
+                <Tooltip title="使用者">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/2.jpg"
-                    />
+
+                    <AccountCircleIcon fontSize="large" sx={{ color: "white"}}/>
                   </IconButton>
                 </Tooltip>
                 <Menu

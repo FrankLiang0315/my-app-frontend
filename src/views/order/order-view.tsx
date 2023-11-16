@@ -2,22 +2,13 @@
 import { Loading } from "@/compornets/loading";
 import { AuthContext } from "@/context/auth-context";
 import {
-  Button,
-  CircularProgress,
-  DialogContent,
-  DialogTitle,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
+  Button
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useLayoutEffect, useState } from "react";
-import PetsIcon from "@mui/icons-material/Pets";
-import { TransitionDialog } from "@/compornets/transition-dialog";
 import { SendGet } from "@/tools/send-api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { getStatus } from "./order-tools";
+import { getClientStatus } from "./order-tools";
 import { Order } from "./order-type";
 import { OrderItemDialog } from "./order-item-dialog";
 import { getFormatDate } from "@/tools/format";
@@ -46,14 +37,16 @@ export default function OrderView() {
 
   const cols: GridColDef[] = [
     {
-      flex: 0.3,
       field: "orderNumber",
       headerName: "訂單編號",
+      minWidth: 150,
+      flex: 1,
     },
     {
-      flex: 0.3,
       field: "price",
       headerName: "金額",
+      minWidth: 150,
+      flex: 1,
       headerAlign: "right",
       align: "right",
       renderCell: ({ row }: CellType) => {
@@ -61,19 +54,21 @@ export default function OrderView() {
       },
     },
     {
-      flex: 0.3,
       field: "status",
       headerName: "狀態",
+      minWidth: 150,
+      flex: 1,
       headerAlign: "center",
       align: "center",
       renderCell: ({ row }: CellType) => {
-        return <p>{getStatus(row.status)}</p>;
+        return <p>{getClientStatus(row.status)}</p>;
       },
     },
     {
-      flex: 0.3,
       field: "createdAt",
       headerName: "建立時間",
+      minWidth: 150,
+      flex: 1,
       // headerAlign: "right",
       // align: "right",
       renderCell: ({ row }: CellType) => {
@@ -81,9 +76,10 @@ export default function OrderView() {
       },
     },
     {
-      flex: 0.3,
       field: "button",
       headerName: "",
+      minWidth: 150,
+      flex: 1,
       headerAlign: "center",
       align: "center",
       renderCell: ({ row }: CellType) => {
@@ -122,12 +118,16 @@ export default function OrderView() {
               rows={orders}
               getRowId={(row) => row.id}
               disableRowSelectionOnClick
+              sx={{backgroundColor:"white"}}
             ></DataGrid>
-            <OrderItemDialog isOpen={isDialogOpen} closeFn={closeDialog} order={targetOrder}></OrderItemDialog>
+            <OrderItemDialog
+              isOpen={isDialogOpen}
+              closeFn={closeDialog}
+              order={targetOrder}
+            ></OrderItemDialog>
           </div>
         )}
       </div>
-      
     </>
   );
 }

@@ -3,6 +3,7 @@ import ProductView from "@/views/product/product-view"
 import { Grid } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 
 type Place = { name: string, type: number };
@@ -68,7 +69,7 @@ const cols: GridColDef[] = [
       {
         row.monsters?.map((monster)=>{
           return(
-            <img className='w-8 mr-2' src={monster.img} alt={monster.name} key={monster.name}/>
+            <Image className='w-8 mr-2' src={monster.img ?? ""} alt={monster.name} key={monster.name}/>
           )
         })
       }

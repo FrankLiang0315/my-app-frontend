@@ -71,7 +71,7 @@ export default function PetView() {
     SendGet(`Pet/${pet.id}`).then((res) => {
       console.log(res);
       let targetPet = res.data;
-      targetPet.birthday = getFormatDate(new Date (targetPet.birthday));
+      targetPet.birthday = getFormatDate(new Date(targetPet.birthday));
       console.log(targetPet);
       setTargetPet(targetPet);
     });
@@ -102,7 +102,7 @@ export default function PetView() {
                         }}
                         key={pet.id}
                       >
-                        <PetsIcon className=" text-[50px]"></PetsIcon>
+                        <PetsIcon sx={{ fontSize: 50 }}></PetsIcon>
                         <div className="flex justify-center w-full items-center text-lg">
                           {pet.name}
                         </div>
@@ -112,11 +112,11 @@ export default function PetView() {
               </div>
 
               <Button
-                className="mt-6"
                 variant="contained"
                 onClick={() => {
                   route.push("pet/create");
                 }}
+                sx={{mt: 3}}
               >
                 新增
               </Button>

@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { SendPost } from '@/tools/send-api';
 import { Button } from '@mui/material';
-import { useRouter } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import { MessageContext } from '@/context/message-context';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -66,7 +66,7 @@ export default function ResetPasswordView() {
   const onSubmit: SubmitHandler<Inputs> = (data) => register(data)
 
   if (token === null || email === null) {
-    return;
+    return notFound();
   } else {
     return (
       <div className='w-full'>
@@ -94,7 +94,7 @@ export default function ResetPasswordView() {
               ></FormTextField>
   
             </div>
-            <Button className='mt-8 w-full' variant="contained" type='submit'>確認</Button>
+            <Button fullWidth variant="contained" type='submit' sx={{mt: 4}}>確認</Button>
           </form>
         </div>
       </div>
