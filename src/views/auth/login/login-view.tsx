@@ -77,7 +77,7 @@ export default function LoginView() {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-2">
           <FormTextField
-            label="名稱"
+            label="帳號"
             size="small"
             variant="outlined"
             fullWidth

@@ -18,7 +18,7 @@ type Inputs = {
 };
 const schema = yup
   .object({
-    username: yup.string().required("必填"),
+    username: yup.string().matches(/^[a-zA-Z0-9]+$/, '只能包含英文和數字').required("必填"),
     email: yup.string().email("信箱格式錯誤").required("必填"),
     password: yup
       .string()
@@ -68,7 +68,7 @@ export default function RegisterView() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-2">
           <FormTextField
-            label="名稱"
+            label="帳號"
             size="small"
             variant="outlined"
             fullWidth
