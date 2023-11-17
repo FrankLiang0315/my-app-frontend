@@ -105,10 +105,10 @@ export default function LoginView() {
       >
         忘記密碼
       </p>
-      <Divider className="my-5"></Divider>
+      <Divider sx={{my:2.5}}></Divider>
 
       <h2>沒有帳號嗎?</h2>
-      <Button className="w-1/4" variant="contained" onClick={toRegister}>
+      <Button variant="contained" onClick={toRegister} sx={{width:"25%"}}>
         註冊
       </Button>
     </AuthLayout>
