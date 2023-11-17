@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SendPost } from "@/tools/send-api";
 import Checkbox from "@mui/material/Checkbox";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 
 type ConfirmItem = {
   petId: number;
@@ -62,6 +62,7 @@ const receiverFields = [
 ];
 
 export function CartConfirm({ items, pets }: Props) {
+  const [isSameAsOrder, setIsSameAsOrder] = useState<boolean>(false);
   const form = useForm<Inputs>({
     resolver: yupResolver(schema),
   });
@@ -118,6 +119,7 @@ export function CartConfirm({ items, pets }: Props) {
   };
 
   const sameAsOrder = (event: ChangeEvent<HTMLInputElement>) => {
+    setIsSameAsOrder(event.target.checked);
     if (event.target.checked) {
       setValue("receiverAdd", getValues("ordererAdd"));
       setValue("receiverName", getValues("ordererName"));
@@ -170,7 +172,7 @@ export function CartConfirm({ items, pets }: Props) {
               {receiverFields.map((rf) => {
                 return (
                   <div
-                  key={rf.name}
+                    key={rf.name}
                     className={
                       rf.size === "l"
                         ? "col-span-12"
@@ -178,6 +180,7 @@ export function CartConfirm({ items, pets }: Props) {
                     }
                   >
                     <FormTextField
+                      InputLabelProps={isSameAsOrder ? { shrink: true } : {}}
                       size={"small"}
                       fullWidth
                       form={form}

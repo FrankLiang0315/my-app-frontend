@@ -28,7 +28,7 @@ import { SendGet, SendPost } from "@/tools/send-api";
 import { FormAutocomplete } from "@/compornets/form-autocomplete";
 import InputAdornment from "@mui/material/InputAdornment";
 import { MessageContext } from "@/context/message-context";
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { getFormatDate } from "@/tools/format";
 
 // public string? Name { get; set; }
@@ -86,7 +86,9 @@ const activityButtons = [
 
 export default function PetCreateView() {
   const auth = useContext(AuthContext);
+  const router = useRouter();
   const [step, setStep] = useState(0);
+  const [today, setToday] = useState(new Date().toISOString().split("T")[0]);
   const [breedList, setBreedList] = useState<
     { id: number; name: string; type: number; size: number }[]
   >([]);
@@ -117,24 +119,24 @@ export default function PetCreateView() {
     SendGet("Pet/breed-list").then((res) => {
       setBreedList(res.data);
     });
+    watch("birthday");
   }, []);
 
   // useEffect(() => {
   //   console.log(getValues());
   // }, [getValues()]);
 
-
   const message = useContext(MessageContext);
 
-  const onSubmit: SubmitHandler<Inputs> = async(data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
     // let finalData = data;
-    
+
     const res = await SendPost("Pet/create", data);
     if (res.status === "Success") {
       setStep(step + 1);
     } else {
-      message.showDialog("error", "建立失敗 "+ res.message);
+      message.showDialog("error", "建立失敗 " + res.message);
     }
   };
 
@@ -185,6 +187,17 @@ export default function PetCreateView() {
       console.error(error);
     }
   };
+
+  function getAge(dateString: string) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
 
   return (
     <>
@@ -266,11 +279,16 @@ export default function PetCreateView() {
                         name="birthday"
                         fullWidth
                         type="date"
+                        inputProps={{
+                          max: today,
+                        }}
                       />
-                      <p>
-                        小黑 已經 18 歲啦！
-                        處於中老年階段，出現疾病要及時帶牠就醫，用陪伴和支持將愛延長~
-                      </p>
+                      {!isNaN(getAge(getValues("birthday"))) && (
+                        <p>
+                          {getValues("name")} 已經{" "}
+                          {getAge(getValues("birthday"))} 歲啦！
+                        </p>
+                      )}
                     </>
                   )}
                   {step === 4 && (
@@ -282,34 +300,41 @@ export default function PetCreateView() {
                       />
                     </>
                   )}
-                  {
-                    step === steps.length - 1 && (
-                      <>
-                        <div className="text-center">
-                          <CheckCircleOutlineIcon className='text-9xl' color="success" />
-                        </div>
-                      </>
-                    )
-                  }
+                  {step === steps.length - 1 && (
+                    <>
+                      <div className="text-center">
+                        <CheckCircleOutlineIcon
+                          color="success"
+                          sx={{ fontSize: 128 }}
+                        />
+                      </div>
+                      <Button variant="contained" sx={{width:"25%", margin:"auto"}} onClick={()=>{router.push("/pet")}}>返回列表</Button>
+                    </>
+                  )}
                 </div>
                 {/* buttons */}
-                {step !== steps.length - 1 && <div className="mt-20 flex justify-between">
-                  
-                    <Button variant="contained" disabled={step === 0} onClick={lastStep}>
+                {step !== steps.length - 1 && (
+                  <div className="mt-20 flex justify-between">
+                    <Button
+                      variant="contained"
+                      disabled={step === 0}
+                      onClick={lastStep}
+                    >
                       上一頁
                     </Button>
-               
-                  {step !== steps.length - 2 && (
-                    <Button variant="contained" onClick={nextStep}>
-                      下一頁
-                    </Button>
-                  )}
-                  {step === steps.length - 2 && (
-                    <Button variant="contained" type="submit">
-                      送出
-                    </Button>
-                  )}
-                </div>}
+
+                    {step !== steps.length - 2 && (
+                      <Button variant="contained" onClick={nextStep}>
+                        下一頁
+                      </Button>
+                    )}
+                    {step === steps.length - 2 && (
+                      <Button variant="contained" type="submit">
+                        送出
+                      </Button>
+                    )}
+                  </div>
+                )}
               </form>
             </div>
           </div>
